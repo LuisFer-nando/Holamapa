@@ -86,8 +86,8 @@
       fillOpacity: 0.3
     },
     onEachFeature: function (feature, layer) {
-      if (feature.properties && feature.properties.tot-alum) {
-        layer.bindPopup('Estudiantes: ' + feature.properties.tot-alum);
+      if (feature.properties && feature.properties.totalum) {
+        layer.bindPopup('Estudiantes: ' + feature.properties.totalum);
       }
     }
   });
