@@ -55,9 +55,9 @@
   // Define la capa vacía para las alcaldías
   var alcaldiasLayer = L.geoJSON(null, {
     style: {
-      color: 'green',
-      weight: 2,
-      fillOpacity: 0.1
+      color: 'red',
+      weight: 3,
+      fillOpacity: 0.2
     },
     onEachFeature: function (feature, layer) {
       if (feature.properties && feature.properties.NOMGEO) {
@@ -77,6 +77,32 @@
   // Agregar control de capas para encender/apagar
   var overlayMaps = {
     "Alcaldías CDMX": alcaldiasLayer
+  };
+  L.control.layers(null, overlayMaps).addTo(map);
+  var estudiantesLayer = L.geoJSON(null, {
+    style: {
+      color: 'orange',
+      weight: 4,
+      fillOpacity: 0.3
+    },
+    onEachFeature: function (feature, layer) {
+      if (feature.properties && feature.properties.tot-alum) {
+        layer.bindPopup('Estudiantes: ' + feature.properties.tot-alum);
+      }
+    }
+  });
+
+  // Cargar el archivo GeoJSON (debe estar en la misma carpeta o cambiar la ruta)
+  fetch('alumsup.geojson')
+    .then(response => response.json())
+    .then(data => {
+      estudiantesLayer.addData(data);
+  });
+
+
+  // Agregar control de capas para encender/apagar
+  var overlayMaps = {
+    "Estudiantes nivel superior": estudiantesLayer
   };
   L.control.layers(null, overlayMaps).addTo(map);
 
